@@ -16,7 +16,7 @@ jobs:
              with:
                  name: $ {{ inputs.artifact-name }}
            - name: list files
-             uses: ls
+             run: ls
 
            - name: deploying reuse  
              run: echo "deploying and updating"
