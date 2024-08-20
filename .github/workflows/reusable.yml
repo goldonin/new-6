@@ -6,8 +6,15 @@ on:
             description: this is the deploying file
             required: false
             type: string
+      outputs:
+        result:
+            description: this is result
+            value: ${{jobs.deploy.outputs.outcome}}
 jobs:
     deploy:
+        outputs:
+            outcome: ${{ steps.set-result.outputs.step-result}}
+
         runs-on: ubuntu-latest
         steps:
            - name: get code
@@ -16,6 +23,8 @@ jobs:
                  name: ${{ inputs.artifact-name }}
            - name: list files
              run: ls
-
            - name: deploying reuse  
              run: echo "deploying and updating"
+           - name:  set result output
+             id: set-result
+             run: echo "::set-output name=step-result::success"
